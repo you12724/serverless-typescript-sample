@@ -1,0 +1,37 @@
+service:
+  name: praha-real-estate
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  root:
+    handler: app/handler/root.index
+    events:
+      - http:
+          method: get
+          path: /
+  estateList:
+    handler: app/handler/estates.index
+    events:
+      - http:
+          method: get
+          path: /api/v1/estates
+  estate:
+    handler: app/handler/estates.show
+    events:
+      - http:
+          method: get
+          path: /api/v1/estates/{id}
+  createPayment:
+    handler: app/handler/payments.create
+    events:
+      - http:
+          method: post
+          path: /api/v1/payments
